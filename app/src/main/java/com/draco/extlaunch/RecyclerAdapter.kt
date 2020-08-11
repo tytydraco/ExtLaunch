@@ -59,8 +59,9 @@ class RecyclerAdapter(
                     recyclerView.context.startActivity(intent, options.toBundle())
                     success = true
                     break
-                } catch (_: Exception) {
-                    return@setOnClickListener
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    continue
                 }
             }
 
