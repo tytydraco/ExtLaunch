@@ -50,16 +50,22 @@ class RecyclerAdapter(
                 return@setOnClickListener
             }
 
+            /* Output to first usable display */
+            var success = false
             for (display in displays) {
                 try {
                     val options = ActivityOptions.makeBasic()
                     options.launchDisplayId = display.displayId
                     recyclerView.context.startActivity(intent, options.toBundle())
+                    success = true
+                    break
                 } catch (_: Exception) {
-                    Toast.makeText(recyclerView.context, "Unsupported display.", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
+
+            if (!success)
+                Toast.makeText(recyclerView.context, "Displays are incompatible.", Toast.LENGTH_SHORT).show()
         }
     }
 }
