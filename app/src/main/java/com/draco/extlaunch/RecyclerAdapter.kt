@@ -55,7 +55,10 @@ class RecyclerAdapter(
                     val options = ActivityOptions.makeBasic()
                     options.launchDisplayId = display.displayId
                     recyclerView.context.startActivity(intent, options.toBundle())
-                } catch (_: Exception) {}
+                } catch (_: Exception) {
+                    Toast.makeText(recyclerView.context, "Unsupported display.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
         }
     }
