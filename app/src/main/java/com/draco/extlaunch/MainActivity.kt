@@ -1,10 +1,9 @@
 package com.draco.extlaunch
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         return appList
     }
 
-    @SuppressLint("PrivateApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

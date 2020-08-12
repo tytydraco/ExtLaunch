@@ -2,6 +2,7 @@ package com.draco.extlaunch
 
 import android.app.ActivityOptions
 import android.app.Service
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.display.DisplayManager
 import android.view.LayoutInflater
@@ -42,6 +43,7 @@ class RecyclerAdapter(
 
         holder.itemView.setOnClickListener {
             val intent = packageManager.getLaunchIntentForPackage(info.id)
+            intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             val dm = recyclerView.context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
             val displays = dm.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
 
