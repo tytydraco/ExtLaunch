@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import java.lang.Exception
 
 class AppLauncher: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -16,6 +18,10 @@ class AppLauncher: BroadcastReceiver() {
 
         val options = ActivityOptions.makeBasic()
         options.launchDisplayId = displayId
-        context.startActivity(appIntent, options.toBundle())
+        try {
+            context.startActivity(appIntent, options.toBundle())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
