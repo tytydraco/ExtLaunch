@@ -21,6 +21,8 @@ class AppInfo {
 }
 
 class MainActivity : AppCompatActivity() {
+    private val notificationChannelId = "extlaunch-notification"
+
     private fun getAppList(): ArrayList<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -49,13 +51,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            "extlaunch-notification",
-            "Refocus",
-            NotificationManager.IMPORTANCE_HIGH
-        )
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel = NotificationChannel(notificationChannelId, "Refocus", NotificationManager.IMPORTANCE_HIGH)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -66,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
         recycler.setItemViewCacheSize(250)
 
-        val notificationBuilder = NotificationCompat.Builder(this, "extlaunch-notification")
+        val notificationBuilder = NotificationCompat.Builder(this, notificationChannelId)
             .setSmallIcon(R.drawable.ic_baseline_devices_24)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(Notification.CATEGORY_SYSTEM)
