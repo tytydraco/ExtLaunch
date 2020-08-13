@@ -54,7 +54,7 @@ class RecyclerAdapter(
 
             /* Output to first usable display */
             var success = false
-            for (display in displays) {
+            for (display in displays.reversed()) {
                 try {
                     val options = ActivityOptions.makeBasic()
                     options.launchDisplayId = display.displayId
