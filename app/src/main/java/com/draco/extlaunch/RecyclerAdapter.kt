@@ -70,7 +70,7 @@ class RecyclerAdapter(
                     notificationBuilder
                         .setContentIntent(pendingIntent)
                         .setContentTitle(info.name)
-                        .setContentText("Tap to refocus ${info.name} to the external display.")
+                        .setContentText("Tap to resume ${info.name}.")
                         .setLargeIcon(info.img?.toBitmap())
                     NotificationManagerCompat.from(recyclerView.context).notify(0, notificationBuilder.build())
 
