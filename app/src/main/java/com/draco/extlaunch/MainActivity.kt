@@ -1,21 +1,17 @@
 package com.draco.extlaunch
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    private val notificationChannelId = "extlaunch-notification"
-
     private fun getAppList(): ArrayList<AppInfo> {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null)
         launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -56,14 +52,8 @@ class MainActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
         recycler.setItemViewCacheSize(250)
 
-        val notificationBuilder = NotificationCompat.Builder(this, notificationChannelId)
-            .setSmallIcon(R.drawable.ic_baseline_devices_24)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setCategory(Notification.CATEGORY_SYSTEM)
-            .setOngoing(true)
-
         val appInfoList = getAppList()
-        val adapter = RecyclerAdapter(appInfoList, recycler, packageManager, notificationBuilder)
+        val adapter = RecyclerAdapter(appInfoList, recycler)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
 

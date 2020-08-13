@@ -1,10 +1,9 @@
 package com.draco.extlaunch
 
-import android.app.ActivityOptions
+import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.hardware.display.DisplayManager
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,
-        private val recyclerView: RecyclerView,
-        private val packageManager: PackageManager,
-        private val notificationBuilder: NotificationCompat.Builder
+        private val recyclerView: RecyclerView
     ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -64,6 +61,11 @@ class RecyclerAdapter(
                     recyclerView.context.sendBroadcast(appIntent)
 
                     /* Create notification to resume */
+                    val notificationBuilder = NotificationCompat.Builder(recyclerView.context, notificationChannelId)
+                        .setSmallIcon(R.drawable.ic_baseline_devices_24)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(Notification.CATEGORY_SYSTEM)
+                        .setOngoing(true)
                     val pendingIntent = PendingIntent.getActivity(recyclerView.context, 0, appIntent, 0)
                     notificationBuilder
                         .setContentIntent(pendingIntent)
