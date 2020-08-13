@@ -55,23 +55,30 @@ class RecyclerAdapter(
             var success = false
             for (display in displays.reversed()) {
                 try {
-                    val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
-                    appIntent.putExtra("appId", info.id)
-                    appIntent.putExtra("displayId", display.displayId)
-                    recyclerView.context.sendBroadcast(appIntent)
+                    /* Start on external display */
+                    val externalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
+                    externalAppIntent.putExtra("appId", info.id)
+                    externalAppIntent.putExtra("displayId", display.displayId)
+                    val externalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 0, externalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    recyclerView.context.sendBroadcast(externalAppIntent)
+
+                    /* Create intent for internal display */
+                    val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
+                    internalAppIntent.putExtra("appId", info.id)
+                    internalAppIntent.putExtra("displayId", 0)
+                    val internalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 1, internalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
                     /* Create notification to resume */
                     val notificationBuilder = NotificationCompat.Builder(recyclerView.context, notificationChannelId)
                         .setSmallIcon(R.drawable.ic_baseline_devices_24)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setCategory(Notification.CATEGORY_SYSTEM)
-                        .setOngoing(true)
-                    val pendingIntent = PendingIntent.getActivity(recyclerView.context, 0, appIntent, 0)
-                    notificationBuilder
-                        .setContentIntent(pendingIntent)
                         .setContentTitle(info.name)
-                        .setContentText("Tap to resume ${info.name}.")
+                        .setContentText("Refocus or move ${info.name} between displays.")
                         .setLargeIcon(info.img?.toBitmap())
+                        .setOngoing(true)
+                        .addAction(R.drawable.ic_baseline_devices_24, "Internal", internalPendingIntent)
+                        .addAction(R.drawable.ic_baseline_devices_24, "External", externalPendingIntent)
                     NotificationManagerCompat.from(recyclerView.context).notify(0, notificationBuilder.build())
 
                     success = true
@@ -88,10 +95,10 @@ class RecyclerAdapter(
 
         holder.itemView.setOnLongClickListener {
             /* Output to internal display */
-            val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
-            appIntent.putExtra("appId", info.id)
-            appIntent.putExtra("displayId", 0)
-            recyclerView.context.sendBroadcast(appIntent)
+            val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
+            internalAppIntent.putExtra("appId", info.id)
+            internalAppIntent.putExtra("displayId", 0)
+            recyclerView.context.sendBroadcast(internalAppIntent)
 
             return@setOnLongClickListener true
         }

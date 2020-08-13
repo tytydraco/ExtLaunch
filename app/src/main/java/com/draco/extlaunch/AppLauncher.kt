@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class AppLauncher: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
