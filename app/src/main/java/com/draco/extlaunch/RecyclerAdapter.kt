@@ -70,5 +70,17 @@ class RecyclerAdapter(
             if (!success)
                 Toast.makeText(recyclerView.context, "Displays are incompatible.", Toast.LENGTH_SHORT).show()
         }
+
+        holder.itemView.setOnLongClickListener {
+            val intent = packageManager.getLaunchIntentForPackage(info.id)
+            intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+
+            /* Output to internal display */
+            val options = ActivityOptions.makeBasic()
+            options.launchDisplayId = 0
+            recyclerView.context.startActivity(intent, options.toBundle())
+
+            return@setOnLongClickListener true
+        }
     }
 }
