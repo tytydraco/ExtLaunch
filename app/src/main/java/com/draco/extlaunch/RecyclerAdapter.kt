@@ -56,7 +56,7 @@ class RecyclerAdapter(
             for (display in displays.reversed()) {
                 if (!display.isValid)
                     continue
-                
+
                 /* Start on external display */
                 val externalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
                 externalAppIntent.putExtra("appId", info.id)
@@ -89,16 +89,6 @@ class RecyclerAdapter(
 
             if (!success)
                 Toast.makeText(recyclerView.context, "Displays are incompatible.", Toast.LENGTH_SHORT).show()
-        }
-
-        holder.itemView.setOnLongClickListener {
-            /* Output to internal display */
-            val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
-            internalAppIntent.putExtra("appId", info.id)
-            internalAppIntent.putExtra("displayId", 0)
-            recyclerView.context.sendBroadcast(internalAppIntent)
-
-            return@setOnLongClickListener true
         }
     }
 }
