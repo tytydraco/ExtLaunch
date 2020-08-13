@@ -41,13 +41,14 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
+        val intent = packageManager.getLaunchIntentForPackage(info.id)
+        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
         holder.img.setImageDrawable(info.img)
         holder.img.contentDescription = info.name
         holder.name.text = info.name
 
         holder.itemView.setOnClickListener {
-            val intent = packageManager.getLaunchIntentForPackage(info.id)
-            intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             val dm = recyclerView.context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
             val displays = dm.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)
 
@@ -86,9 +87,6 @@ class RecyclerAdapter(
         }
 
         holder.itemView.setOnLongClickListener {
-            val intent = packageManager.getLaunchIntentForPackage(info.id)
-            intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-
             /* Output to internal display */
             val options = ActivityOptions.makeBasic()
             options.launchDisplayId = 0
