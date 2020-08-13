@@ -24,3 +24,5 @@ Use the ongoing notification to switch the active application between displays. 
 
 # Play Store
 This application is paid ($0.99 USD) on the Play Store. It'd mean a lot if you paid for it, however, I wanted to make this application Open Source as well for ongoing support, similar applications, etc. Feel free to consider it a donation, or build it manually if you'd like.
+
+[LINK](https://play.google.com/store/apps/details?id=com.draco.extlaunch&hl=en)
