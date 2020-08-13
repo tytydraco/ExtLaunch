@@ -1,9 +1,14 @@
 package com.draco.extlaunch
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -43,6 +48,17 @@ class MainActivity : AppCompatActivity() {
         return appList
     }
 
+    private fun createNotificationChannel() {
+        val channel = NotificationChannel(
+            "extlaunch-notification",
+            "Refocus",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,9 +66,17 @@ class MainActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recycler)
         recycler.setItemViewCacheSize(250)
 
+        val notificationBuilder = NotificationCompat.Builder(this, "extlaunch-notification")
+            .setSmallIcon(R.drawable.ic_baseline_devices_24)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(Notification.CATEGORY_SYSTEM)
+            .setOngoing(true)
+
         val appInfoList = getAppList()
-        val adapter = RecyclerAdapter(appInfoList, recycler, packageManager)
+        val adapter = RecyclerAdapter(appInfoList, recycler, packageManager, notificationBuilder)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
+
+        createNotificationChannel()
     }
 }

@@ -1,6 +1,7 @@
 package com.draco.extlaunch
 
 import android.app.ActivityOptions
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,13 +12,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
-
 
 class RecyclerAdapter(
         private var appList: ArrayList<AppInfo>,
         private val recyclerView: RecyclerView,
-        private val packageManager: PackageManager
+        private val packageManager: PackageManager,
+        private val notificationBuilder: NotificationCompat.Builder
     ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -59,6 +63,16 @@ class RecyclerAdapter(
                     val options = ActivityOptions.makeBasic()
                     options.launchDisplayId = display.displayId
                     recyclerView.context.startActivity(intent, options.toBundle())
+
+                    /* Create notification to resume */
+                    val pendingIntent = PendingIntent.getActivity(recyclerView.context, 0, intent, 0)
+                    notificationBuilder
+                        .setContentIntent(pendingIntent)
+                        .setContentTitle(info.name)
+                        .setContentText("Tap to refocus ${info.name} to the external display.")
+                        .setLargeIcon(info.img?.toBitmap())
+                    NotificationManagerCompat.from(recyclerView.context).notify(0, notificationBuilder.build())
+
                     success = true
                     break
                 } catch (e: Exception) {
