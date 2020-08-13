@@ -41,9 +41,6 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        val intent = packageManager.getLaunchIntentForPackage(info.id)
-        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
         holder.img.setImageDrawable(info.img)
         holder.img.contentDescription = info.name
         holder.name.text = info.name
@@ -61,12 +58,13 @@ class RecyclerAdapter(
             var success = false
             for (display in displays.reversed()) {
                 try {
-                    val options = ActivityOptions.makeBasic()
-                    options.launchDisplayId = display.displayId
-                    recyclerView.context.startActivity(intent, options.toBundle())
+                    val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
+                    appIntent.putExtra("appId", info.id)
+                    appIntent.putExtra("displayId", display.displayId)
+                    recyclerView.context.sendBroadcast(appIntent)
 
                     /* Create notification to resume */
-                    val pendingIntent = PendingIntent.getActivity(recyclerView.context, 0, intent, 0)
+                    val pendingIntent = PendingIntent.getActivity(recyclerView.context, 0, appIntent, 0)
                     notificationBuilder
                         .setContentIntent(pendingIntent)
                         .setContentTitle(info.name)
@@ -88,9 +86,10 @@ class RecyclerAdapter(
 
         holder.itemView.setOnLongClickListener {
             /* Output to internal display */
-            val options = ActivityOptions.makeBasic()
-            options.launchDisplayId = 0
-            recyclerView.context.startActivity(intent, options.toBundle())
+            val appIntent = Intent(recyclerView.context, AppLauncher::class.java)
+            appIntent.putExtra("appId", info.id)
+            appIntent.putExtra("displayId", 0)
+            recyclerView.context.sendBroadcast(appIntent)
 
             return@setOnLongClickListener true
         }
