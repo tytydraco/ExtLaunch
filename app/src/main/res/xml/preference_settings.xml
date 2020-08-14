@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:key="viewStore"
+            android:title="View Store Page"
+            android:summary="View this application on the Google Play Store." />
+        <Preference
+            android:key="github"
+            android:title="GitHub"
+            android:summary="View the source code for this application." />
+        <Preference
+            android:key="contact"
+            android:title="Contact"
+            android:summary="Send me an email for support or feedback." />
+    </PreferenceCategory>
+</PreferenceScreen>

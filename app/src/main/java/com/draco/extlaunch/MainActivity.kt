@@ -53,6 +53,14 @@ class MainActivity : AppCompatActivity() {
         recycler.setItemViewCacheSize(250)
 
         val appInfoList = getAppList()
+
+        val settingsButton = AppInfo()
+        settingsButton.id = "settings"
+        settingsButton.name = "ExtLaunch Settings"
+        settingsButton.img = packageManager.getApplicationIcon(packageName)
+
+        appInfoList.add(0, settingsButton)
+
         val adapter = RecyclerAdapter(appInfoList, recycler)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)

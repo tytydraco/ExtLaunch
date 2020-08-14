@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 
@@ -38,9 +39,18 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        holder.img.setImageDrawable(info.img)
+        if (info.img != null)
+            holder.img.setImageDrawable(info.img)
         holder.img.contentDescription = info.name
         holder.name.text = info.name
+
+        if (info.id == "settings") {
+            holder.itemView.setOnClickListener {
+                val intent = Intent(recyclerView.context, SettingsActivity::class.java)
+                recyclerView.context.startActivity(intent)
+            }
+            return
+        }
 
         holder.itemView.setOnClickListener {
             val dm = recyclerView.context.getSystemService(Service.DISPLAY_SERVICE) as DisplayManager
