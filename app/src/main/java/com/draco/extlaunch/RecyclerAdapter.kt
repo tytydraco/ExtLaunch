@@ -46,6 +46,10 @@ class RecyclerAdapter(
         val externalPendingIntent = PendingIntent.getBroadcast(recyclerView.context, 0, externalAppIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         recyclerView.context.sendBroadcast(externalAppIntent)
 
+        /* Check if we should display notification */
+        if (!sharedPrefs.getBoolean("show_notification", true))
+            return
+
         /* Create intent for internal display */
         val internalAppIntent = Intent(recyclerView.context, AppLauncher::class.java)
         internalAppIntent.putExtra("appId", info.id)
