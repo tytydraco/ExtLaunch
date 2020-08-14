@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -61,7 +62,9 @@ class MainActivity : AppCompatActivity() {
 
         appInfoList.add(0, settingsButton)
 
-        val adapter = RecyclerAdapter(appInfoList, recycler)
+        val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        val adapter = RecyclerAdapter(appInfoList, recycler, sharedPrefs)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
 

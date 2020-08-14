@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Configuration">
+        <SwitchPreference
+            android:key="default_internal"
+            android:title="Default Internal"
+            android:summary="Open applications on the internal display by default." />
+    </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
             android:key="viewStore"
