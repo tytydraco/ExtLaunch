@@ -7,4 +7,5 @@
     android:id="@+id/recycler"
     android:fadingEdgeLength="30dp"
     android:requiresFadingEdge="vertical"
+    android:scrollbars="vertical"
     tools:context=".MainActivity" />
