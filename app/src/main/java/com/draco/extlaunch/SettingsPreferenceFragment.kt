@@ -5,6 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+
+
+
 
 class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     /* Setup our preference screen */
@@ -37,6 +41,11 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     .setData(Uri.parse("mailto:tylernij@gmail.com?subject=ExtLaunch%20Feedback"))
 
                 startActivity(intent)
+            }
+
+            /* Show open source licenses */
+            "licenses" -> {
+                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
             }
 
             /* If we couldn't handle a preference click */

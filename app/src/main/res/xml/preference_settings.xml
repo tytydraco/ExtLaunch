@@ -24,5 +24,9 @@
             android:key="contact"
             android:title="Contact"
             android:summary="Send me an email for support or feedback" />
+        <Preference
+            android:key="licenses"
+            android:title="Licenses"
+            android:summary="View the open source licenses used by this app" />
     </PreferenceCategory>
 </PreferenceScreen>
