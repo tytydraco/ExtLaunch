@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
     compileSdkVersion 30
@@ -10,8 +9,8 @@ android {
         applicationId "com.draco.extlaunch"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 6
-        versionName "1.1"
+        versionCode 7
+        versionName "1.1.1"
     }
 
     buildTypes {

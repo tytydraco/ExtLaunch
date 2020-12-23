@@ -41,7 +41,7 @@ class Launcher(
                 context.getString(R.string.snackbar_start_failed),
                 Snackbar.LENGTH_SHORT
             )
-                .setAction(context.getString(R.string.dismiss), null)
+                .setAction(context.getString(R.string.dismiss)) {}
                 .show()
         }
     }
@@ -54,7 +54,7 @@ class Launcher(
                 context.getString(R.string.snackbar_no_displays),
                 Snackbar.LENGTH_SHORT
             )
-                .setAction(context.getString(R.string.dismiss), null)
+                .setAction(context.getString(R.string.dismiss)) {}
                 .show()
             return
         }
