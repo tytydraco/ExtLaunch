@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:layout_height="@dimen/icon_size"
+    android:gravity="center_vertical"
+    android:layout_marginHorizontal="16dp"
+    android:orientation="horizontal">
     <ImageView
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:paddingHorizontal="16dp"
+        android:padding="16dp"
         android:adjustViewBounds="true"
         android:id="@+id/img"
-        android:contentDescription="@string/app_name" />
-    <TextView
+        tools:ignore="ContentDescription" />
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/white"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:lines="1"
         android:ellipsize="end"
-        android:paddingHorizontal="16dp"
-        android:id="@+id/name"
-        android:textSize="24sp" />
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:id="@+id/name" />
 </LinearLayout>
