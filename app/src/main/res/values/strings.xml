@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ExtLaunch</string>
+
+    <string name="dismiss">Dismiss</string>
+
+    <string name="dialog_displays_title">Displays</string>
+
+    <string name="snackbar_no_displays">No external displays detected</string>
+    <string name="snackbar_start_failed">Failed to start app</string>
 </resources>

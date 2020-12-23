@@ -2,8 +2,6 @@ package com.draco.extlaunch.recyclers
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.draco.extlaunch.R
 import com.draco.extlaunch.utils.AppInfo
+import com.draco.extlaunch.utils.Launcher
 import java.util.*
 
 class LauncherRecyclerAdapter(private val context: Context): RecyclerView.Adapter<LauncherRecyclerAdapter.ViewHolder>() {
@@ -79,24 +78,8 @@ class LauncherRecyclerAdapter(private val context: Context): RecyclerView.Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = appList[position]
 
-        val appIntent = context.packageManager.getLaunchIntentForPackage(info.id)
-        appIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-        val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        settingsIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        settingsIntent.data = Uri.fromParts("package", info.id, null)
-
         holder.itemView.setOnClickListener {
-            try {
-                context.startActivity(appIntent)
-            } catch (_: Exception) {}
-        }
-
-        holder.itemView.setOnLongClickListener {
-            try {
-                context.startActivity(settingsIntent)
-            } catch (_: Exception) {}
-            return@setOnLongClickListener true
+            Launcher(context, holder.itemView, info.id).start()
         }
 
         /* Setup app icons and labels */
