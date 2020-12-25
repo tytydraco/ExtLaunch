@@ -1,4 +1,4 @@
-package com.draco.extlaunch.utils
+package com.draco.extlaunch.models
 
 data class AppInfo(
     var label: String,

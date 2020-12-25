@@ -1,14 +1,18 @@
-package com.draco.extlaunch.activities
+package com.draco.extlaunch.views
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.draco.extlaunch.R
 import com.draco.extlaunch.recyclers.LauncherRecyclerAdapter
 import com.draco.extlaunch.recyclers.RecyclerEdgeEffectFactory
+import com.draco.extlaunch.viewmodels.MainActivityViewModel
 
 class MainActivity: AppCompatActivity() {
+    private lateinit var viewModel: MainActivityViewModel
+
     private lateinit var recyclerAdapter: LauncherRecyclerAdapter
     private lateinit var recycler: RecyclerView
 
@@ -16,13 +20,19 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         recycler = findViewById(R.id.recycler)
 
         setupRecyclerView()
+
+        viewModel.getAppList().observe(this) {
+            recyclerAdapter.appList = viewModel.getAppList().value!!
+            recyclerAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun setupRecyclerView() {
-        recyclerAdapter = LauncherRecyclerAdapter(this).apply {
+        recyclerAdapter = LauncherRecyclerAdapter(this, viewModel.getAppList().value!!).apply {
             setHasStableIds(true)
         }
 
@@ -37,7 +47,8 @@ class MainActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        recyclerAdapter.updateList()
+        if (viewModel.updateList())
+            recyclerAdapter.notifyDataSetChanged()
     }
 
     override fun onBackPressed() {}
