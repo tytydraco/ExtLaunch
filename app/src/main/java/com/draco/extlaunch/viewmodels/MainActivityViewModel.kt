@@ -17,7 +17,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         updateList()
     }
 
-    fun updateList(): Boolean {
+    fun updateList() {
         val launcherIntent = Intent(Intent.ACTION_MAIN, null).apply {
             addCategory(Intent.CATEGORY_LAUNCHER)
         }
@@ -41,11 +41,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             it.label.toLowerCase(Locale.getDefault())
         }
 
-        if (!appList.value.contentEquals(newAppList.toTypedArray())) {
+        if (!appList.value.contentEquals(newAppList.toTypedArray()))
             appList.value = newAppList.toTypedArray()
-            return true
-        }
-
-        return false
     }
 }
