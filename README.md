@@ -1,5 +1,5 @@
 # ExtLaunch
-An extremely minimal Android launcher for externally connected displalys.
+An extremely minimal Android launcher for externally connected displays.
 
 # Caveats
 - Cursor support does not work (Android limitation, pointer is restricted to primary display unless ForceDesktopMode is enabled in Developer Options. You can use that as a workaround).
